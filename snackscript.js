@@ -1,12 +1,12 @@
 
-
+      // used raw.github and also directly from image path --- 2 diff ways to load images for testing purposes
 const productOnHomepage = [
-    { id: 1, name: "Classic Chinchin", price: 3.50, description: "Crunchy bite of pure delight.", image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=500&auto=format&fit=crop&q=60" },
-    { id: 2, name: "Brown Latte Chinchin", price: 3.75, description: "Latte style and flavour in all aspects.", image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=500&auto=format&fit=crop&q=60" },
-    { id: 3, name: "Traditional Naija Rev Chinchin", price: 4.00, description: "Traditional light cocoa red cake topped with a decadent, smooth reverse.", image: "https://images.unsplash.com/photo-1614707267537-b85acf00c4b8?w=500&auto=format&fit=crop&q=60" },
-    { id: 4, name: "Wester Sunburst Chinchin", price: 3.75, description: "Brings out the sunny side.", image: "https://images.unsplash.com/photo-1519869325930-281384150729?w=500&auto=format&fit=crop&q=60" },
-    { id: 5, name: "Coconut burst", price: 4.25, description: "Caramel core chinchin topped with a coconut drizzle.", image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500&auto=format&fit=crop&q=60" },
-    { id: 6, name: "Na our own oo", price: 4.00, description: "Our own unique creation without any compromise.", image: "https://images.unsplash.com/photo-1536680465769-a36969597a54?w=500&auto=format&fit=crop&q=60" }
+    { id: 1, name: "Classic Chinchin", price: 1000, description: "Crunchy bite of pure delight.", image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=500&auto=format&fit=crop&q=60" },
+    { id: 2, name: "Brown Latte Chinchin", price: 2500, description: "Latte style and flavour in all aspects.", image: "images/lattechin.png" },
+    { id: 3, name: "Traditional Naija Rev Chinchin", price: 750, description: "Traditional light cocoa red cake topped with a decadent, smooth reverse.", image: "https://raw.githubusercontent.com/Wincc88/lolachinchin/main/images/butterchin.png?raw=true" },
+    { id: 4, name: "Wester Sunburst Chinchin", price: 2000, description: "Brings out the sunny side.", image: "https://images.unsplash.com/photo-1519869325930-281384150729?w=500&auto=format&fit=crop&q=60" },
+    { id: 5, name: "Coconut burst", price: 900, description: "Caramel core chinchin topped with a coconut drizzle.", image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500&auto=format&fit=crop&q=60" },
+    { id: 6, name: "Na our own oo", price: 1100, description: "Our own unique creation without any compromise.", image: "images/crunchychin.png" }
 ];
 
 // --- Mock Cloud Storage Storage Handler Engine ---
@@ -106,7 +106,7 @@ function renderProducts() {
             <div class="product-info">
                 <div class="product-header">
                     <h4 class="product-title">${product.name}</h4>
-                    <span class="product-price">$${product.price.toFixed(2)}</span>
+                    <span class="product-price">₦${product.price.toFixed(0)}</span>
                 </div>
                 <p class="product-desc">${product.description}</p>
                 <button onclick="addToCart(${product.id})" class="add-to-cart-btn">
@@ -168,8 +168,8 @@ function updateCartUI() {
     }
 
     currentCartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    cartTotal.textContent = `$${currentCartTotal.toFixed(2)}`;
-    modalTotalText.textContent = currentCartTotal.toFixed(2);
+    cartTotal.textContent = `₦${currentCartTotal.toFixed(0)}`;
+    modalTotalText.textContent = currentCartTotal.toFixed(0);
 
     cartItemsContainer.innerHTML = '';
     if (cart.length === 0) {
@@ -183,7 +183,7 @@ function updateCartUI() {
                     <img src="${item.image}" alt="${item.name}" class="cart-item-img">
                     <div>
                         <h5 class="cart-item-title">${item.name}</h5>
-                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                        <p class="cart-item-price">₦${item.price.toFixed(0)}</p>
                     </div>
                 </div>
                 <div class="cart-item-controls">
