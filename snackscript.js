@@ -66,7 +66,7 @@ let currentCartTotal = 0;
 
 // --- Elements Map ---
 const productContainer = document.getElementById('product-container');
-const cartToggleBtn = document.getElementById('cart-toggle-btn');
+const cartToggleBtn = document.getElementById('cartToggleBtn');
 const cartCloseBtn = document.getElementById('cart-close-btn');
 const dbResetBtn = document.getElementById('db-reset-btn');
 const cartOverlay = document.getElementById('cart-overlay');

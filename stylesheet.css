@@ -83,7 +83,7 @@
             border-color: #fca5a5;
         }
 
-        .cart-toggle-btn {
+        .cartToggleBtn {
             position: relative;
             padding: 0.5rem;
             background-color: var(--primary-light);
@@ -97,7 +97,7 @@
             justify-content: center;
         }
 
-        .cart-toggle-btn:hover {
+        .cartToggleBtn:hover {
             background-color: #fbcfe8;
         }
 
@@ -124,8 +124,9 @@
         /* --- Hero Section --- */
         .hero {
             background-color: var(--primary-light);
-            padding: 4rem 1rem;
+            padding: 16px 4px;
             text-align: center;
+            
         }
 
         .hero-content {
@@ -147,7 +148,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .cta-btn {
+        .exploreBtn {
             display: inline-block;
             background-color: var(--primary);
             color: var(--white);
@@ -159,7 +160,7 @@
             transition: var(--transition);
         }
 
-        .cta-btn:hover {
+        .exploreBtn:hover {
             background-color: var(--primary-hover);
         }
 

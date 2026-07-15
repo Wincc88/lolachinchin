@@ -1,5 +1,4 @@
-# 
-Snack order from form
+# Snack order with form
 
 ## 
 Customer data is inputed and captured in db: If customer cancels order , data is cleared and return to previous session
