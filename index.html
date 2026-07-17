@@ -11,19 +11,20 @@
 
     <header>
 
-        <div class="nav-container">
+        <div class="nav_container">
 
             <h1 class="logo">
-                <i data-lucide="cake"></i> Lola's Chinchin
+                <!-- used home lucide as no chinchin svg and making svg is pointless -->
+                <i data-lucide="home"></i> LOLA'S CHINCHIN
             </h1>
 
-            <div class="nav-actions">
+            <div class="nav_actions">
 
-                <button id="db-reset-btn" class="db-reset-btn">Reset Cloud Data</button>
+                <button id="db_reset_btn" class="db_reset_btn">Reset Cloud Data</button>
                 
                 <button id="cartToggleBtn" class="cartToggleBtn">
                     <i data-lucide="shopping-basket"></i>
-                    <span id="cart-count" class="cart-count hidden">0</span>
+                    <span id="cart_count" class="cart_count hidden">0</span>
                 </button>
 
             </div>
@@ -34,7 +35,7 @@
 
     <section class="hero">
 
-        <div class="hero-content">
+        <div class="hero_content">
 
             <h2>yum with every munch!</h2>
             <p>Discover our daily selection of handcrafted, gourmet chinchins and more.</p>
@@ -46,36 +47,36 @@
 
     <main id="menu">
         
-        <h3 class="section-title">Our Signature Flavors</h3>
+        <h3 class="section_title">Our Signature Flavors</h3>
 
-        <div id="product-container" class="product-grid">
+        <div id="product_container" class="product_grid">
         </div>
 
     </main>
 
-    <div id="cart-overlay" class="cart-overlay">
+    <div id="cart_overlay" class="cart_overlay">
 
-        <div id="cart-sidebar" class="cart-sidebar">
+        <div id="cart_sidebar" class="cart_sidebar">
 
-            <div class="cart-header">
-                <h3 class="cart-header-title">
+            <div class="cart_header">
+                <h3 class="cart_header_title">
                     <i data-lucide="shopping-cart"></i> Your Cart
                 </h3>
-                <button id="cart-close-btn" class="cart-close-btn">
+                <button id="cart_close_btn" class="cart_close_btn">
                     <i data-lucide="x"></i>
                 </button>
             </div>
 
-            <div id="cart-items-container" class="cart-items-container">
-                <p id="empty-cart-msg" class="empty-cart-msg">Your cart is empty. Time to add some sweetness!</p>
+            <div id="cart_items_container" class="cart_items_container">
+                <p id="empty_cart_msg" class="empty_cart_msg">Your cart is empty. Time to add some sweetness!</p>
             </div>
 
-            <div class="cart-footer">
-                <div class="total-row">
+            <div class="cart_footer">
+                <div class="total_row">
                     <span>Total:</span>
-                    <span id="cart-total">$0.00</span>
+                    <span id="cart_total">$0.00</span>
                 </div>
-                <button id="checkout-btn" class="checkout-btn" disabled>
+                <button id="checkout_btn" class="checkout_btn" disabled>
                     Proceed to Checkout
                 </button>
             </div>
@@ -83,42 +84,46 @@
         </div>
     </div>
 
-    <div id="order-modal-overlay" class="modal-overlay">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 class="cart-header-title"><i data-lucide="truck"></i> Delivery Details</h3>
-                <button id="modal-close-btn" class="cart-close-btn"><i data-lucide="x"></i></button>
+    <div id="order_modal_overlay" class="modal_overlay">
+        <div class="modal_card">
+            <div class="modal_header">
+                <h3 class="cart_header_title"><i data-lucide="truck"></i> Delivery Details</h3>
+                <button id="modal_close_btn" class="cart_close_btn"><i data-lucide="x"></i></button>
             </div>
-            <div class="modal-body">
-                <form id="order-form" novalidate>
-                    <div class="form-group">
-                        <label for="cust-name">Full Name</label>
-                        <input type="text" id="cust-name" required placeholder="John Doe">
-                        <span class="error-text">Please enter your name.</span>
+            <div class="modal_body">
+                <form id="order_form" novalidate>
+                    <div class="form_group">
+                        <label for="cust_name">Full Name</label>
+                        <input type="text" id="cust_name" required placeholder="John Doe">
+                        <span class="error_text">Please enter your name.</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="cust-phone">WhatsApp / Phone Number</label>
-                        <input type="tel" id="cust-phone" required placeholder="+60123456789">
-                        <span class="error-text">Enter a valid international mobile number (e.g. +60123456789 or 0123456789).</span>
+                    <div class="form_group">
+                        <label for="cust_phone">WhatsApp / Phone Number</label>
+                        <input type="tel" id="cust_phone" required placeholder="+60123456789">
+                        <span class="error_text">Enter a valid international mobile number (e.g. +60123456789 or 0123456789).</span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="cust-email">Email Address</label>
-                        <input type="email" id="cust-email" required placeholder="john@example.com">
-                        <span class="error-text">Enter a valid email address (e.g. name@domain.com).</span>
+                    <div class="form_group">
+                        <label for="cust_email">Email Address</label>
+                        <input type="email" id="cust_email" required placeholder="john@example.com">
+                        <span class="error_text">Enter a valid email address (e.g. name@domain.com).</span>
                     </div>
 
-                    <button type="submit" class="submit-order-btn">Place Order ($<span id="modal-total">0.00</span>)</button>
-                    <button type="button" class="cancel-order-btn">Cancel Order</button>
+                    <button type="submit" class="submit_order_btn">Place Order ($<span id="modal_total">0.00</span>)</button>
+                    <button type="button" class="cancel_order_btn">Cancel Order</button>
                 </form>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Lola's Chinchin. All rights reserved.</p>
+        <p>&copy; <span id="current_year"></span> Lola's Chinchin. All rights reserved.</p>
     </footer>
+        
+
+      <!-- lucide tracks but only tracks to scan DOM, makes the icons easier to use -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <script src="snackscript.js"></script>
 

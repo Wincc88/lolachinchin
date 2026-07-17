@@ -1,11 +1,17 @@
 
+   // i forgot to add # to the id, thus gave null at first -- use same for all getelementbyID in code
+const currentYear = document.querySelector('#current_year');
+currentYear.textContent = new Date().getFullYear();
+
+
       // used raw.github and also directly from image path --- 2 diff ways to load images for testing purposes
+      // also redo with node.js later -- for now this helps with CORS bypass
 const productOnHomepage = [
     { id: 1, name: "Classic Chinchin", price: 1000, description: "Crunchy bite of pure delight.", image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=500&auto=format&fit=crop&q=60" },
     { id: 2, name: "Brown Latte Chinchin", price: 2500, description: "Latte style and flavour in all aspects.", image: "images/lattechin.png" },
     { id: 3, name: "Traditional Naija Rev Chinchin", price: 750, description: "Traditional light cocoa red cake topped with a decadent, smooth reverse.", image: "https://raw.githubusercontent.com/Wincc88/lolachinchin/main/images/butterchin.png?raw=true" },
-    { id: 4, name: "Wester Sunburst Chinchin", price: 2000, description: "Brings out the sunny side.", image: "https://images.unsplash.com/photo-1519869325930-281384150729?w=500&auto=format&fit=crop&q=60" },
-    { id: 5, name: "Coconut burst", price: 900, description: "Caramel core chinchin topped with a coconut drizzle.", image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500&auto=format&fit=crop&q=60" },
+    { id: 4, name: "Western Sunburst Chinchin", price: 2000, description: "Brings out the sunny side.", image: "images/containerchin.jpg" },
+    { id: 5, name: "Coconut burst", price: 900, description: "Caramel core chinchin topped with a coconut drizzle.", image: "images/pouchchin.jpg" },
     { id: 6, name: "Na our own oo", price: 1100, description: "Our own unique creation without any compromise.", image: "images/crunchychin.png" }
 ];
 
@@ -65,27 +71,27 @@ let cart = [];
 let currentCartTotal = 0;
 
 // --- Elements Map ---
-const productContainer = document.getElementById('product-container');
+const productContainer = document.getElementById('product_container');
 const cartToggleBtn = document.getElementById('cartToggleBtn');
-const cartCloseBtn = document.getElementById('cart-close-btn');
-const dbResetBtn = document.getElementById('db-reset-btn');
-const cartOverlay = document.getElementById('cart-overlay');
-const cartItemsContainer = document.getElementById('cart-items-container');
-const emptyCartMsg = document.getElementById('empty-cart-msg');
-const cartCount = document.getElementById('cart-count');
-const cartTotal = document.getElementById('cart-total');
-const checkoutBtn = document.getElementById('checkout-btn');
+const cartCloseBtn = document.getElementById('cart_close_btn');
+const dbResetBtn = document.getElementById('db_reset_btn');
+const cartOverlay = document.getElementById('cart_overlay');
+const cartItemsContainer = document.getElementById('cart_items_container');
+const emptyCartMsg = document.getElementById('empty_cart_msg');
+const cartCount = document.getElementById('cart_count');
+const cartTotal = document.getElementById('cart_total');
+const checkoutBtn = document.getElementById('checkout_btn');
 
 // Modal Elements
-const orderModalOverlay = document.getElementById('order-modal-overlay');
-const modalCloseBtn = document.getElementById('modal-close-btn');
-const orderForm = document.getElementById('order-form');
-const modalTotalText = document.getElementById('modal-total');
+const orderModalOverlay = document.getElementById('order_modal_overlay');
+const modalCloseBtn = document.getElementById('modal_close_btn');
+const orderForm = document.getElementById('order_form');
+const modalTotalText = document.getElementById('modal_total');
 
 // Form Input Mapping Targets
-const inputName = document.getElementById('cust-name');
-const inputPhone = document.getElementById('cust-phone');
-const inputEmail = document.getElementById('cust-email');
+const inputName = document.getElementById('cust_name');
+const inputPhone = document.getElementById('cust_phone');
+const inputEmail = document.getElementById('cust_email');
 
 // --- Initialization Entry Point ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,27 +101,27 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     setupEventListeners();
     updateCartUI();
-   // lucide.createIcons();
+    lucide.createIcons();
 });
 
 // --- Dynamic Catalog UI Generation ---
 function renderProducts() {
     productContainer.innerHTML = cachedProducts.map(product => `
-        <div class="product-card">
-            <img class="product-img" src="${product.image}" alt="${product.name}">
-            <div class="product-info">
-                <div class="product-header">
-                    <h4 class="product-title">${product.name}</h4>
-                    <span class="product-price">₦${product.price.toFixed(0)}</span>
+        <div class="product_card">
+            <img class="product_img" src="${product.image}" alt="${product.name}">
+            <div class="product_info">
+                <div class="product_header">
+                    <h4 class="product_title">${product.name}</h4>
+                    <span class="product_price">₦${product.price.toFixed(0)}</span>
                 </div>
-                <p class="product-desc">${product.description}</p>
-                <button onclick="addToCart(${product.id})" class="add-to-cart-btn">
+                <p class="product_desc">${product.description}</p>
+                <button onclick="addToCart(${product.id})" class="add_to_cart_btn">
                     <i data-lucide="plus-circle"></i> Add to Cart
                 </button>
             </div>
         </div>
     `).join('');
-   // lucide.createIcons();
+    lucide.createIcons();
 }
 
 // --- Cart Mutation Logic Actions ---
@@ -177,29 +183,29 @@ function updateCartUI() {
     } else {
         cart.forEach(item => {
             const itemEl = document.createElement('div');
-            itemEl.className = "cart-item";
+            itemEl.className = "cart_item";
             itemEl.innerHTML = `
-                <div class="cart-item-meta">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                <div class="cart_item_meta">
+                    <img src="${item.image}" alt="${item.name}" class="cart_item_img">
                     <div>
-                        <h5 class="cart-item-title">${item.name}</h5>
-                        <p class="cart-item-price">₦${item.price.toFixed(0)}</p>
+                        <h5 class="cart_item_title">${item.name}</h5>
+                        <p class="cart_item_price">₦${item.price.toFixed(0)}</p>
                     </div>
                 </div>
-                <div class="cart-item-controls">
-                    <div class="quantity-selector">
-                        <button onclick="changeQuantity(${item.id}, -1)" class="qty-btn">-</button>
-                        <span class="qty-val">${item.quantity}</span>
-                        <button onclick="changeQuantity(${item.id}, 1)" class="qty-btn">+</button>
+                <div class="cart_item_controls">
+                    <div class="quantity_selector">
+                        <button onclick="changeQuantity(${item.id}, -1)" class="qty_btn">-</button>
+                        <span class="qty_val">${item.quantity}</span>
+                        <button onclick="changeQuantity(${item.id}, 1)" class="qty_btn">+</button>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" class="delete-item-btn">
+                    <button onclick="removeFromCart(${item.id})" class="delete_item_btn">
                         <i data-lucide="trash-2"></i>
                     </button>
                 </div>
             `;
             cartItemsContainer.appendChild(itemEl);
         });
-       // lucide.createIcons();
+        lucide.createIcons();
     }
 }
 
@@ -274,7 +280,7 @@ function setupEventListeners() {
 
     modalCloseBtn.addEventListener('click', closeModal);
       // Close modal when clicking outside the modal content area or use cancel button
-    document.querySelector('.cancel-order-btn').addEventListener('click', closeModal);
+    document.querySelector('.cancel_order_btn').addEventListener('click', closeModal);
     orderModalOverlay.addEventListener('click', (e) => {
         if (e.target === orderModalOverlay) closeModal();
     });
