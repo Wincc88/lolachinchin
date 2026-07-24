@@ -1,5 +1,6 @@
 
-   // i forgot to add # to the id, thus gave null at first -- use same for all getelementbyID in code
+
+   // i forgot to add # to the id, thus gave null at first -- use same for all querySelector in code
 const currentYear = document.querySelector('#current_year');
 currentYear.textContent = new Date().getFullYear();
 
@@ -17,10 +18,18 @@ const productOnHomepage = [
 
 // --- Mock Cloud Storage Storage Handler Engine ---
 const CloudStorageMock = { 
-    
+     
+         // make all object methods here i.e inside cloudstoragemock obj literal {}
+
       // default onload products -- ALWAYS the 6 on productOnHomepage
-    getProducts: function() {
-        let products = localStorage.getItem('cloud_products');
+
+              /*getProducts: function() {  
+                   use getProducts() is cleaner
+              */
+         
+    getProducts() {
+        const products = localStorage.getItem('cloud_products');
+
         if (!products) {
             localStorage.setItem('cloud_products', JSON.stringify(productOnHomepage));
                //console.log('cloud_products', JSON.stringify(productOnHomepage));
@@ -31,7 +40,8 @@ const CloudStorageMock = {
     },
 
        // Retrieve cart contents from localStorage or initialize empty cart -- null if no previous session exists, otherwise returns previously saved cart contents
-    getCart: function() {
+         // getCart: function() {
+    getCart() {
         let cart = localStorage.getItem('cloud_cart');
           // console.log("☁️ Data successfully retrieved from Mock Cloud DB logs:", JSON.parse(cart)); 
         if (cart) {
@@ -41,15 +51,15 @@ const CloudStorageMock = {
         }
     },
 
-    saveCart: function(cartData) {
+        //saveCart: function(cartData) {
+    saveCart(cartData) {
         localStorage.setItem('cloud_cart', JSON.stringify(cartData));
         // console.log("☁️ Data successfully captured on Mock Cloud DB logs:", cartData);
     },
 
-    // Save final processed order collection entry logs 
-    saveOrder: function(orderPayload) {
-        let currentOrders = localStorage.getItem('cloud_orders');
-        let orderList = currentOrders ? JSON.parse(currentOrders) : [];
+    saveOrder(orderPayload) {
+        const currentOrders = localStorage.getItem('cloud_orders');
+        const orderList = currentOrders ? JSON.parse(currentOrders) : [];
         orderList.push(orderPayload);
         localStorage.setItem('cloud_orders', JSON.stringify(orderList));
 
@@ -57,11 +67,11 @@ const CloudStorageMock = {
         // console.log("☁️ Data successfully captured on Mock Cloud DB logs :", orderPayload);
     },
 
-    resetDatabase: function() {
+    resetDatabase() {
         localStorage.removeItem('cloud_products');
         localStorage.removeItem('cloud_cart');
         localStorage.removeItem('cloud_orders');
-        window.location.reload();
+        location.reload();  // window.location.reload is redundant
     }
 };
 
@@ -71,27 +81,27 @@ let cart = [];
 let currentCartTotal = 0;
 
 // --- Elements Map ---
-const productContainer = document.getElementById('product_container');
-const cartToggleBtn = document.getElementById('cartToggleBtn');
-const cartCloseBtn = document.getElementById('cart_close_btn');
-const dbResetBtn = document.getElementById('db_reset_btn');
-const cartOverlay = document.getElementById('cart_overlay');
-const cartItemsContainer = document.getElementById('cart_items_container');
-const emptyCartMsg = document.getElementById('empty_cart_msg');
-const cartCount = document.getElementById('cart_count');
-const cartTotal = document.getElementById('cart_total');
-const checkoutBtn = document.getElementById('checkout_btn');
+const productContainer = document.querySelector('#product_container');
+const cartToggleBtn = document.querySelector('#cartToggleBtn');
+const cartCloseBtn = document.querySelector('#cart_close_btn');
+const dbResetBtn = document.querySelector('#db_reset_btn');
+const cartOverlay = document.querySelector('#cart_overlay');
+const cartItemsContainer = document.querySelector('#cart_items_container');
+const emptyCartMsg = document.querySelector('#empty_cart_msg');
+const cartCount = document.querySelector('#cart_count');
+const cartTotal = document.querySelector('#cart_total');
+const checkoutBtn = document.querySelector('#checkout_btn');
 
 // Modal Elements
-const orderModalOverlay = document.getElementById('order_modal_overlay');
-const modalCloseBtn = document.getElementById('modal_close_btn');
-const orderForm = document.getElementById('order_form');
-const modalTotalText = document.getElementById('modal_total');
+const orderModalOverlay = document.querySelector('#order_modal_overlay');
+const modalCloseBtn = document.querySelector('#modal_close_btn');
+const orderForm = document.querySelector('#order_form');
+const modalTotalText = document.querySelector('#modal_total');
 
 // Form Input Mapping Targets
-const inputName = document.getElementById('cust_name');
-const inputPhone = document.getElementById('cust_phone');
-const inputEmail = document.getElementById('cust_email');
+const inputName = document.querySelector('#cust_name');
+const inputPhone = document.querySelector('#cust_phone');
+const inputEmail = document.querySelector('#cust_email');
 
 // --- Initialization Entry Point ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,31 +111,65 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     setupEventListeners();
     updateCartUI();
-    lucide.createIcons();
+     // lucide.createIcons();
 });
 
 // --- Dynamic Catalog UI Generation ---
 function renderProducts() {
-    productContainer.innerHTML = cachedProducts.map(product => `
-        <div class="product_card">
-            <img class="product_img" src="${product.image}" alt="${product.name}">
-            <div class="product_info">
-                <div class="product_header">
-                    <h4 class="product_title">${product.name}</h4>
-                    <span class="product_price">₦${product.price.toFixed(0)}</span>
-                </div>
-                <p class="product_desc">${product.description}</p>
-                <button onclick="addToCart(${product.id})" class="add_to_cart_btn">
-                    <i data-lucide="plus-circle"></i> Add to Cart
-                </button>
-            </div>
-        </div>
-    `).join('');
+    productContainer.replaceChildren();
+
+    cachedProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product_card';
+
+            const image = document.createElement('img');
+            image.className = 'product_img';
+            image.src = product.image;
+            image.alt = product.name;
+
+            const info = document.createElement('div');
+            info.className = 'product_info';
+
+                const header = document.createElement('div');
+                header.className = 'product_header';
+
+                    const title = document.createElement('h4');
+                    title.className = 'product_title';
+                    title.textContent = product.name;
+
+                    const price = document.createElement('span');
+                    price.className = 'product_price';
+                    price.textContent = `₦${product.price.toFixed(0)}`;
+
+                const description = document.createElement('p');
+                description.className = 'product_desc';
+                description.textContent = product.description;
+
+                const addButton = document.createElement('button');
+                addButton.className = 'add_to_cart_btn';
+                addButton.type = 'button';
+                addButton.addEventListener('click', () => addToCart(product.id));
+           
+           // for lucide
+        const icon = document.createElement('i');
+        icon.dataset.lucide = 'plus-circle';
+        addButton.append(icon, document.createTextNode(' Add to Cart'));
+
+        header.append(title, price);
+        info.append(header, description, addButton);
+        card.append(image, info);
+        productContainer.appendChild(card);
+    });
+
     lucide.createIcons();
 }
 
-// --- Cart Mutation Logic Actions ---
-window.addToCart = function(productId) {
+    //  cart mutation logic actions 
+    // assign function values to window(a global) object    --- no need, changed to const
+    // window.addToCart = function(productId) {
+    // export/import const addtocart is cleaner though private to file 
+
+const addToCart = function(productId) {
     const product = cachedProducts.find(p => p.id === productId);
     const existingItem = cart.find(item => item.id === productId);
 
@@ -140,13 +184,17 @@ window.addToCart = function(productId) {
     openCart();
 };
 
-window.removeFromCart = function(productId) {
+   // window.removeFromCart = function(productId) {
+const removeFromCart = function(productId) {
+
     cart = cart.filter(item => item.id !== productId);
     CloudStorageMock.saveCart(cart);
     updateCartUI();
 };
 
-window.changeQuantity = function(productId, delta) {
+   // window.changeQuantity = function(productId, delta) {
+const changeQuantity = function(productId, delta) {
+
     const item = cart.find(item => item.id === productId);
     if (!item) return;
 
@@ -177,32 +225,70 @@ function updateCartUI() {
     cartTotal.textContent = `₦${currentCartTotal.toFixed(0)}`;
     modalTotalText.textContent = currentCartTotal.toFixed(0);
 
-    cartItemsContainer.innerHTML = '';
+    cartItemsContainer.replaceChildren();
+
     if (cart.length === 0) {
         cartItemsContainer.appendChild(emptyCartMsg);
     } else {
         cart.forEach(item => {
             const itemEl = document.createElement('div');
-            itemEl.className = "cart_item";
-            itemEl.innerHTML = `
-                <div class="cart_item_meta">
-                    <img src="${item.image}" alt="${item.name}" class="cart_item_img">
-                    <div>
-                        <h5 class="cart_item_title">${item.name}</h5>
-                        <p class="cart_item_price">₦${item.price.toFixed(0)}</p>
-                    </div>
-                </div>
-                <div class="cart_item_controls">
-                    <div class="quantity_selector">
-                        <button onclick="changeQuantity(${item.id}, -1)" class="qty_btn">-</button>
-                        <span class="qty_val">${item.quantity}</span>
-                        <button onclick="changeQuantity(${item.id}, 1)" class="qty_btn">+</button>
-                    </div>
-                    <button onclick="removeFromCart(${item.id})" class="delete_item_btn">
-                        <i data-lucide="trash-2"></i>
-                    </button>
-                </div>
-            `;
+            itemEl.className = 'cart_item';
+
+                const meta = document.createElement('div');
+                meta.className = 'cart_item_meta';
+
+                        const image = document.createElement('img');
+                        image.className = 'cart_item_img';
+                        image.src = item.image;
+                        image.alt = item.name;
+
+                        const details = document.createElement('div');
+
+                                const title = document.createElement('h5');
+                                title.className = 'cart_item_title';
+                                title.textContent = item.name;
+
+                                const price = document.createElement('p');
+                                price.className = 'cart_item_price';
+                                price.textContent = `₦${item.price.toFixed(0)}`;
+
+                const controls = document.createElement('div');
+                controls.className = 'cart_item_controls';
+
+                        const selector = document.createElement('div');
+                        selector.className = 'quantity_selector';
+
+                                const minusBtn = document.createElement('button');
+                                minusBtn.className = 'qty_btn';
+                                minusBtn.type = 'button';
+                                minusBtn.textContent = '-';
+                                minusBtn.addEventListener('click', () => changeQuantity(item.id, -1));
+
+                                const quantity = document.createElement('span');
+                                quantity.className = 'qty_val';
+                                quantity.textContent = item.quantity;
+
+                                const plusBtn = document.createElement('button');
+                                plusBtn.className = 'qty_btn';
+                                plusBtn.type = 'button';
+                                plusBtn.textContent = '+';
+                                plusBtn.addEventListener('click', () => changeQuantity(item.id, 1));
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'delete_item_btn';
+                        deleteBtn.type = 'button';
+                        deleteBtn.addEventListener('click', () => removeFromCart(item.id));
+                            
+                                // lucide
+                                const deleteIcon = document.createElement('i');
+                                deleteIcon.dataset.lucide = 'trash-2';
+
+            selector.append(minusBtn, quantity, plusBtn);
+            deleteBtn.appendChild(deleteIcon);
+            controls.append(selector, deleteBtn);
+            details.append(title, price);
+            meta.append(image, details);
+            itemEl.append(meta, controls);
             cartItemsContainer.appendChild(itemEl);
         });
         lucide.createIcons();
@@ -257,7 +343,7 @@ function validateForm() {
     return isValid;
 }
 
-// --- Application Interaction Binding ---
+// now all together
 function setupEventListeners() {
     cartToggleBtn.addEventListener('click', openCart);
     cartCloseBtn.addEventListener('click', closeCart);
